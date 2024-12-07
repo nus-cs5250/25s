@@ -1,0 +1,33 @@
+site_name: CS5250 Assignments (2025 Spring)
+theme:
+  name: material
+  features:
+    - content.code.copy
+    - content.code.select
+    - navigation.indexes
+    - navigation.sections
+    - navigation.tabs
+    - toc.integrate
+  font:
+    text: Roboto
+    code: Roboto Mono
+markdown_extensions:
+  - admonition
+  - footnotes
+  - mdx_truly_sane_lists
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc
+extra_javascript:
+  - javascripts/open_in_new_tab.js
+extra_css:
+  - "stylesheets/extra.css"
+nav:
+  - Home: index.md
