@@ -63,7 +63,7 @@ Please adjust the terminal width to 80-120 characters when you take the screensh
 ### [Task 2: Build and Install Linux Kernel](task-kbuild.md)
 
 **Question 5 (10 marks):**
-Please submit the DEB package `linux-image-6.12.9..._amd64.deb` containing your customized smaller kernel.
+Please submit the DEB package `linux-image-6.13.0..._amd64.deb` containing your customized smaller kernel.
 
 ### [Task 3: Explore the Boot Process](task-boot.md)
 
