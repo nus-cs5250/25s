@@ -3,12 +3,12 @@
 In this course, we will have 4 assignments.
 Tentatively, we will follow the schedule below.
 
-|  Assignment  |     Release      |       Due        |
-| :----------: | :--------------: | :--------------: |
-| Assignment 1 | Mon, 20 Jan 2025 | Mon, 10 Feb 2025 |
-| Assignment 2 | Mon, 10 Feb 2025 | Mon, 3 Mar 2025  |
-| Assignment 3 | Mon, 3 Mar 2025  | Mon, 24 Mar 2025 |
-| Assignment 4 | Mon, 24 Mar 2025 | Mon, 14 Apr 2025 |
+|           Assignment            |     Release      |       Due        |
+| :-----------------------------: | :--------------: | :--------------: |
+| [Assignment 1](./asg1/index.md) | Mon, 20 Jan 2025 | Mon, 10 Feb 2025 |
+|          Assignment 2           | Mon, 10 Feb 2025 | Mon, 3 Mar 2025  |
+|          Assignment 3           | Mon, 3 Mar 2025  | Mon, 24 Mar 2025 |
+|          Assignment 4           | Mon, 24 Mar 2025 | Mon, 14 Apr 2025 |
 
 The maximum score for an assignment is 50 marks.
 Each assignment will have two parts, i.e.,
@@ -18,6 +18,21 @@ Each assignment will have two parts, i.e.,
 
 Assignments are always due at 17:59 on some Monday (Singapore time).
 Late submissions will incur a penalty of 1 mark per hour.
+
+
+## General Advice
+
+- Please read through the instructions before starting.
+- Don't fear making mistakes; they're part of the learning process.
+  You can always start over and seek help when needed.
+- When you encounter errors, read the messages carefully, especially the first one issued.
+  They often hold the key to resolving issues.
+- Hone your problem-solving skills by harnessing the vast knowledge available online.
+
+- When submitting code, it is essential to ensure that the code compiles without errors.
+  A compilation / syntax error will result in a score of ZERO for that question.
+- Use the root user (or `sudo`) ONLY for operations that really require super-user privileges.
+  [Why is it bad to log in as root?](https://askubuntu.com/questions/16178/why-is-it-bad-to-log-in-as-root)
 
 ## Academic Integrity
 
@@ -57,19 +72,6 @@ It is strictly prohibited to engage in the following actions:
 - You are prohibited from generating content and presenting it as your own work or idea, whether directly or through paraphrasing.
 - Do not use AI tools to process resources not created by you with the intention to plagiarize.
 
-## General Advice
-
-- When submitting code, it is essential to ensure that the code compiles without errors.
-  A compilation error will result in a score of ZERO for that question.
-- Use the root user (or `sudo`) ONLY for operations that really require super-user privileges.
-  [Why is it bad to log in as root?](https://askubuntu.com/questions/16178/why-is-it-bad-to-log-in-as-root)
-- Pay close attention to instructions and tips.
-  A thorough understanding will save your time and effort.
-- Don't fear making mistakes; they're part of the learning process.
-  Understand that you can always start over and seek help when needed.
-- When you encounter errors, read the messages carefully, especially the first one issued.
-  They often hold the key to resolving issues.
-- Hone your problem-solving skills by harnessing the vast knowledge available online.
 
 ## Feedback
 

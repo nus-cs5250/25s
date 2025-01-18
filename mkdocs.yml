@@ -31,3 +31,8 @@ extra_css:
   - "stylesheets/extra.css"
 nav:
   - Home: index.md
+  - Assignment 1:
+      - asg1/index.md
+      - asg1/task-vm.md
+      - asg1/task-kbuild.md
+      - asg1/task-boot.md
