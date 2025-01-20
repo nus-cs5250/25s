@@ -205,11 +205,11 @@ After doing so, several new files should be generated in the parent folder (not 
 Submit the file whose name starts with `linux-image`.
 You can check the file using the commands below:
 
-1. `dpkg -c linux-image-6.13..._amd64.deb`
+1. `dpkg -c linux-image-6.13.0*_6.13.0-*_amd64.deb`
    This command lists the contents of the DEB package.
-   Inside the package, there should be a file named `./boot/vmlinuz-6.13...`.
+   Inside the package, there should be a file named `./boot/vmlinuz-6.13.0...`.
    If not, you might be looking at the wrong file.
-2. `dpkg -f linux-image-6.13..._amd64.deb Maintainer`
+2. `dpkg -f linux-image-6.13.0*_6.13.0-*_amd64.deb Maintainer`
    This command extracts the `Maintainer` information from the control file in the DEB package.
    The output should be like:
 
@@ -221,7 +221,7 @@ You can check the file using the commands below:
 
 !!! question
 
-    Please submit the DEB package `linux-image-6.13..._amd64.deb` containing your customized smaller kernel **on Canvas**.
+    Please submit the DEB package `linux-image-6.13.0*_6.13.0-*_amd64.deb` containing your customized smaller kernel **on Canvas**.
 
     - You should at least submit a DEB package that boots up successfully on your VM.
     - If your kernel boots up successfully, you'll get some marks based on the size of the kernel image.
