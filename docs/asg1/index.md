@@ -120,11 +120,13 @@ Then, proceed to complete the tasks and push your work to GitHub accordingly.
 
 **For this assignment:**
 
-1. For Qn5, the deb package should be submitted on [Canvas](https://canvas.nus.edu.sg/courses/70149/assignments/166038) and a checksum of the deb package should be provided in this repository.
-   You can create the checksum by running `sha256sum <path-to-deb-package>`.
+1. For Qn5, the DEB package should be uploaded on [Canvas](https://canvas.nus.edu.sg/courses/70149/assignments/166038) and a checksum of the DEB package should be provided in the Git repository.
+   You can create the checksum using the script `task2/generate_checksum` in the repository.
 
-   - **Plase Do NOT commit / push the deb package to this repository.** It's a common practice to exclude large binary files from git repositories.
-   - Make sure the the correct checksum of the deb package is provided. If the checksum is incorrect, the late penalty will be applied based on the time you submit the deb package on Canvas or the time you you create the release on GitHub, whichever is later.
+   - **Plase Do NOT commit / push the DEB package to this repository.**
+     It's a common practice to exclude large binary files from git repositories.
+   - Make sure the the correct checksum of the DEB package is provided.
+     If the checksum is incorrect, the late penalty will be applied based on the time you submit the DEB package on Canvas or the time you you create the release on GitHub, whichever is later.
 
 1. For this assignment, you are required to answer Questions 9 in Markdown format.
    If you're unfamiliar with Markdown syntax, you can find numerous online tutorials, such as the one available at [CommonMark](https://commonmark.org/help/tutorial/).
