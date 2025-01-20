@@ -223,7 +223,12 @@ You can check the file using the commands below:
 
     Please submit the DEB package `linux-image-6.13.0*_6.13.0-*_amd64.deb` containing your customized smaller kernel **on Canvas**.
 
-    - You should at least submit a DEB package that boots up successfully on your VM.
-    - If your kernel boots up successfully, you'll get some marks based on the size of the kernel image.
+    - You should upload the DEB package on Canvas, and a checksum file in the Git repository.
+      The checksum file can be generated using the script provided in repository.
+      ```bash
+      task2/generate_checksum /path/to/deb/package
+      ```
+    - The DEB package must boot up successfully on your VM.
+      If your kernel boots up successfully, you'll get some marks based on the size of the kernel image.
       You'll get at least 2 marks if the kernel image is smaller than 10 MiB and full marks if it's smaller than 8 MiB.
       There's no need to shrink it excessively.
