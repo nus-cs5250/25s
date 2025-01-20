@@ -12,7 +12,7 @@ These releases fall into several main categories: mainline, stable, and long-ter
 For more information on the different categories, please check
 [this page](https://www.kernel.org/category/releases.html).
 
-In this semester, we will work with the latest stable release when the course begins, which is Linux 6.12.9.
+In this semester, we will work with the latest mainline release when the course begins, which is Linux 6.13.
 You can find the repository for the mainline tree at
 <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git>
 and the repository for the stable tree at
@@ -31,7 +31,7 @@ To work with Linux kernel sources and perform tasks such as generating a patch, 
 Use the following command to clone the repository:
 
 ```bash
-git clone https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git --depth 1 --branch v6.12.9
+git clone https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git --depth 1 --branch v6.13
 ```
 
 Here's what each option does:
@@ -46,7 +46,7 @@ Here's what each option does:
 
 ### Download kernel source code
 
-To download a kernel source code release, visit this link: <https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.12.9.tar.xz>.
+To download a kernel source code release, visit this link: <https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.13.tar.xz>.
 
 All kernel releases are cryptographically signed.
 To ensure the integrity of your downloaded kernel releases, follow the instructions provided [here](https://www.kernel.org/category/signatures.html).
@@ -87,14 +87,14 @@ You can choose one of the following methods:
 
 - **`make defconfig`**
 
-   This command creates a default configuration file for the kernel.
-   The default configuration is a good starting point, but you may want to customize it further.
+  This command creates a default configuration file for the kernel.
+  The default configuration is a good starting point, but you may want to customize it further.
 
 - **`make menuconfig`**
 
-   This command opens a menu that allows you to customize the kernel configuration.
-   If there is no configuration file in the current directory, the command will create a new one based on the configuration of the kernel currently running on your machine.
-   It is recommended to use this method if you are not using VirtualBox.
+  This command opens a menu that allows you to customize the kernel configuration.
+  If there is no configuration file in the current directory, the command will create a new one based on the configuration of the kernel currently running on your machine.
+  It is recommended to use this method if you are not using VirtualBox.
 
 You can check other configuration options by running `make help`.
 
@@ -205,11 +205,11 @@ After doing so, several new files should be generated in the parent folder (not 
 Submit the file whose name starts with `linux-image`.
 You can check the file using the commands below:
 
-1. `dpkg -c linux-image-6.12.9..._amd64.deb`
+1. `dpkg -c linux-image-6.13..._amd64.deb`
    This command lists the contents of the DEB package.
-   Inside the package, there should be a file named `./boot/vmlinuz-6.12.9...`.
+   Inside the package, there should be a file named `./boot/vmlinuz-6.13...`.
    If not, you might be looking at the wrong file.
-2. `dpkg -f linux-image-6.12.9..._amd64.deb Maintainer`
+2. `dpkg -f linux-image-6.13..._amd64.deb Maintainer`
    This command extracts the `Maintainer` information from the control file in the DEB package.
    The output should be like:
 
@@ -221,7 +221,7 @@ You can check the file using the commands below:
 
 !!! question
 
-    Please submit the DEB package `linux-image-6.12.9..._amd64.deb` containing your customized smaller kernel **on Canvas**.
+    Please submit the DEB package `linux-image-6.13..._amd64.deb` containing your customized smaller kernel **on Canvas**.
 
     - You should at least submit a DEB package that boots up successfully on your VM.
     - If your kernel boots up successfully, you'll get some marks based on the size of the kernel image.
