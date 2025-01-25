@@ -235,7 +235,7 @@ As a beginner, you may try to find and print the information below.
     Different CPUs may have different features even if they are based on the same architecture.
     [SMAP](https://en.wikipedia.org/wiki/Supervisor_Mode_Access_Prevention) is one of the features commonly available in modern CPUs, but it may not be properly virtualized in some virtual machines.
     Is SMAP available in the VM you have created?
-    Please write a command to check if SMAP is available in the VM.
+    Please write a shell script to check if SMAP is available in the VM.
 
     Hint:
     The `xlogin` nodes in the [SoC Compute Cluster](https://dochub.comp.nus.edu.sg/cf/guides/compute-cluster/start) should have SMAP available.
