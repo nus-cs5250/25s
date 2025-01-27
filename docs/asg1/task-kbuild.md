@@ -185,7 +185,9 @@ Please note:
   You can add suffix to the kernel release version by updating `LOCALVERSION` in the kernel config to identify your kernel images.
   Use the search function of `menuconfig` to find where to modify the option.
 - To check if the VM has successfully booted up, verify that the VM reaches the same login screen as your original kernel.
-- Your goal is to reduce the size of the kernel image (`./arch/x86/boot/bzImage`) to less than 8 MiB.
+- Your goal is to reduce the size of the kernel image (`./arch/x86/boot/bzImage`) to no larger than 8 MiB (8388608 bytes).
+  You'll get at least 2 marks if the kernel image is smaller than 10 MiB and full marks if it's smaller than 8 MiB.
+  There's no need to shrink it excessively.
 
 !!! info
 
@@ -230,5 +232,3 @@ You can check the file using the commands below:
       ```
     - The DEB package must boot up successfully on your VM.
       If your kernel boots up successfully, you'll get some marks based on the size of the kernel image.
-      You'll get at least 2 marks if the kernel image is smaller than 10 MiB and full marks if it's smaller than 8 MiB.
-      There's no need to shrink it excessively.
