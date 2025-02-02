@@ -239,7 +239,7 @@ Please search online for instructions on how to use this command to create a use
 
 !!! question
 
-    Where is the command line argument `systemd.unit=rescue.target` processed in the boot process?
-    Is it processed by the (a) BIOS, (b) kernel, (c) initramfs, or (d) after switching to the root filesystem?
+    Which component acts upon the `systemd.unit=rescue.target` argument?
+    Is it consumed by the (a) BIOS, (b) kernel, (c) initramfs, or (d) after switching to the root filesystem?
 
-    Please choose one of the options above first and then provide a brief explanation.
+    Please choose ONE of the options above first and then provide a brief explanation.
