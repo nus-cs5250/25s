@@ -51,7 +51,7 @@ Please adjust the terminal width to 80-120 characters when you take the screensh
 
 **Question 4 (2 marks):**
 
-It’s common to need to check how much storage is available in your VM, and this can be done by running the `df` command.
+It's common to need to check how much storage is available in your VM, and this can be done by running the `df` command.
 Please refer to the man page of `df` by executing `man df` and learn how to
 
 - output the available storage in a human-readable format, as well as
