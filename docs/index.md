@@ -6,7 +6,7 @@ Tentatively, we will follow the schedule below.
 |           Assignment            |     Release      |       Due        |
 | :-----------------------------: | :--------------: | :--------------: |
 | [Assignment 1](./asg1/index.md) | Mon, 20 Jan 2025 | Mon, 10 Feb 2025 |
-|          Assignment 2           | Mon, 10 Feb 2025 | Mon, 3 Mar 2025  |
+| [Assignment 2](./asg2/index.md) | Mon, 10 Feb 2025 | Mon, 3 Mar 2025  |
 |          Assignment 3           | Mon, 3 Mar 2025  | Mon, 24 Mar 2025 |
 |          Assignment 4           | Mon, 24 Mar 2025 | Mon, 14 Apr 2025 |
 
@@ -18,7 +18,6 @@ Each assignment will have two parts, i.e.,
 
 Assignments are always due at 17:59 on some Monday (Singapore time).
 Late submissions will incur a penalty of 1 mark per hour.
-
 
 ## General Advice
 
@@ -71,7 +70,6 @@ It is strictly prohibited to engage in the following actions:
 - You must not ask AI tools to generate code on your behalf.
 - You are prohibited from generating content and presenting it as your own work or idea, whether directly or through paraphrasing.
 - Do not use AI tools to process resources not created by you with the intention to plagiarize.
-
 
 ## Feedback
 
