@@ -108,6 +108,10 @@ Then, proceed to complete the tasks and push your work to GitHub accordingly.
 
 Refer to the submission guidelines in [Assignment 1](../asg1/index.md#submission-guidelines) for the remaining instructions.
 
+**For this assignment:**
+
+1. Questions 1 and 2 shall be answered in the `manifest.json` file directly.
+
 ## Part B (15 marks)
 
 Please complete the quiz [Assignment 2 (Part B)](https://canvas.nus.edu.sg/courses/70149/quizzes/57317) on Canvas.
