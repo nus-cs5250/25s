@@ -11,8 +11,7 @@
 
 !!! info
 
-    The invitation link is available on Canvas.
-    Some code snippets are provided for you in the repository.
+    Please accept the assignment on GitHub Classroom before proceeding, as some code snippets are provided in the repository.
     The invitation link is available on [Canvas](https://canvas.nus.edu.sg/courses/70149/assignments/169631).
 
 !!! info
@@ -106,6 +105,12 @@ Please ensure that the program compiles without error.
 Please accept the assignment on GitHub Classroom first.
 The invitation link is available on [Canvas](https://canvas.nus.edu.sg/courses/70149/assignments/169631).
 Then, proceed to complete the tasks and push your work to GitHub accordingly.
+
+Refer to the submission guidelines in [Assignment 1](../asg1/index.md#submission-guidelines) for the remaining instructions.
+
+**For this assignment:**
+
+1. Questions 1 and 2 shall be answered in the `manifest.json` file directly.
 
 ## Part B (15 marks)
 
