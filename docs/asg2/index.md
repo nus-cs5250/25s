@@ -11,8 +11,7 @@
 
 !!! info
 
-    The invitation link is available on Canvas.
-    Some code snippets are provided for you in the repository.
+    Please accept the assignment on GitHub Classroom before proceeding, as some code snippets are provided in the repository.
     The invitation link is available on [Canvas](https://canvas.nus.edu.sg/courses/70149/assignments/169631).
 
 !!! info
