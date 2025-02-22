@@ -107,7 +107,6 @@ Please search for further details on the usage of `module_param`, and modify the
 - An integer parameter named "`pid`" with a default value of 1.
 
 ```c
-// sudo insmod hello.ko
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/printk.h>
@@ -122,7 +121,7 @@ const char *tag = "A01234567A";
 pid_t pid       = 1;
 /* MODIFY THE CODE ABOVE TO declare module parameters */
 
-static int __init hello_init(void)
+static int __init getcomm_init(void)
 {
     pr_debug("This is %s speaking.\n", tag);
 
@@ -133,13 +132,13 @@ static int __init hello_init(void)
     return 0;
 }
 
-static void __exit hello_exit(void)
+static void __exit getcomm_exit(void)
 {
     pr_info("Goodbye world.\n");
 }
 
-module_init(hello_init);
-module_exit(hello_exit);
+module_init(getcomm_init);
+module_exit(getcomm_exit);
 ```
 
 Build the module and load it using the `insmod` command.
