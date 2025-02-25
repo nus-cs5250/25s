@@ -27,6 +27,9 @@
 
     If you need VirtualBox shared folders, ensure that `CONFIG_VBOXGUEST` and `CONFIG_VBOXSF_FS` are enabled in your kernel configuration.
 
+    It may require more memory to build the kernel with these features enabled.
+    If you encounter OOM errors during the build process, please increase the memory of your VM to at least 3 GB.
+
 ### [Optional: Get Around in the Source Code Tree](task-browsing.md)
 
 ### [Task 1: Debugging with GDB](task-gdb.md)
