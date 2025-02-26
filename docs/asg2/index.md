@@ -113,7 +113,7 @@ Refer to the submission guidelines in [Assignment 1](../asg1/index.md#submission
 
 **For this assignment:**
 
-1. Questions 1 and 2 shall be answered in the `manifest.json` file directly.
+1. Questions 1, 2 and 4 shall be answered in the `manifest.json` file directly.
 
 ## Part B (15 marks)
 
