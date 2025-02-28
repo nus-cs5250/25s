@@ -73,17 +73,51 @@ Use `dmesg` to check the outputs and confirm its execution.
 The Linux kernel extensively employs linked lists.
 The `struct task_struct` in the Linux kernel includes a `children` member, a `struct list_head` representing the head of a linked list of all child processes of a given process.
 
-You will implement a new system call, `getcpid`, and a user-mode program.
-In "cs5250.c", define the `getcpid` system call that accepts three arguments:
+You will implement a new system call, `getcpid`, that provides a mechanism to obtain the PIDs of child processes for a given parent process.
 
-- A `pid_t` representing the PID of the process whose children you wish to retrieve.
-- A pointer to an array of type `pid_t*` where the PIDs of the children will be stored.
-- A `uint32_t` indicating the size of the array (in number of elements).
+In "cs5250.c", define the `getcpid` system call with the following signature:
 
-This system call should write the PIDs of the children of the specified process to the provided user space array.
+```
+ssize_t getcpid(pid_t pid, pid_t *cpid, uint32_t count);
+```
 
-For guidance on how the system call should behave, you can look at the interface of
-[`getsockname`](https://man7.org/linux/man-pages/man2/getsockname.2.html).
+The `getcpid` system call should take three arguments:
+
+- `pid`: The process ID of the parent process whose child PIDs are to be retrieved.
+- `cpid`: A pointer to a user-space array where the child PIDs will be stored.
+- `count`: The size of the `cpid` array in number of elements.
+
+When `cpid` is non-`NULL`, up to `count` child PIDs are stored in the array pointed to by `cpid`.
+If cpid is `NULL`, the system call returns the total number of child processes without storing any PIDs.
+
+**RETURN VALUE:**
+
+- If cpid is `NULL`, the total number of child processes is returned.
+- Otherwise:
+  - On success, the number of child PIDs stored in the `cpid` array is returned.
+  - On error, `-1` is returned, and `errno` is set appropriately.
+
+**ERRORS:**
+
+- `ESRCH`: No process with the specified PID exists.
+- `EINVAL`: The `count` parameter is less than the number of child processes, or `cpid` is `NULL` and `count` is not zero.
+- `EFAULT`: The `cpid` pointer points outside the accessible address space.
+
+For guidance on how the system call should behave, you may look at the interface of [`getdents`](https://man7.org/linux/man-pages/man2/getdents.2.html).
+
+!!! warning
+
+    You **MUST** use `put_user`, `get_user`, `copy_to_user`, or `copy_from_user` to safely read from or write to user-space memory.
+    Directly accessing user-space memory from the kernel is **NOT** allowed.
+
+    Modern x86 processors implement Supervisor Mode Access Prevention (SMAP), a security feature that restricts the kernel from accessing user-space memory directly.
+    Attempting such access without the appropriate functions will result in a fault.
+
+    The functions `put_user`, `get_user`, `copy_to_user`, and `copy_from_user` help to handle user-space memory access safely.
+    They temporarily disable SMAP protections during the memory access operation and restore them immediately afterward, ensuring both functionality and security are maintained.
+    These functions also perform essential checks to ensure the safety and validity of memory access.
+
+    See: <https://www.kernel.org/doc/html/v6.13/kernel-hacking/hacking.html#copy-to-user-copy-from-user-get-user-put-user>
 
 Additionally, create a user-mode program that uses your custom kernel function.
 This program should take the PID of a process as input and output the PIDs of all its children, one per line.
