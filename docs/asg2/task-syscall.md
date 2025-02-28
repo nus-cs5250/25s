@@ -103,6 +103,10 @@ If cpid is `NULL`, the system call returns the total number of child processes w
 - `EINVAL`: The `count` parameter is less than the number of child processes, or `cpid` is `NULL` and `count` is not zero.
 - `EFAULT`: The `cpid` pointer points outside the accessible address space.
 
+You are not required to strictly adhere to the "return value" and "error" specifications.
+The key requirement here is that the system call must not assume the number of child processes is limited to 10, 20, 1024, or similar small values.
+You may assume it is smaller than 0x400000, but allocating a buffer of that size every time the system call is invoked is not a good idea.
+
 For guidance on how the system call should behave, you may look at the interface of [`getdents`](https://man7.org/linux/man-pages/man2/getdents.2.html).
 
 !!! warning
