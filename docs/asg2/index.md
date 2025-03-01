@@ -4,7 +4,8 @@
 
     Please read the [general instructions](../index.md) first.
 
-    The assignment is due **17:59 on 3 Mar 2025**.
+    Part A of the assignment is due **17:59 on 10 Mar 2025**
+    Part B of the assignment is due **17:59 on 3 Mar 2025**
     Late submissions will lose **1 mark per hour**.
 
 ## Part A (35 marks)
