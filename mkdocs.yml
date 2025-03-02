@@ -43,3 +43,7 @@ nav:
       - asg2/task-gdb.md
       - asg2/task-module.md
       - asg2/task-syscall.md
+  - Assignment 3:
+      - asg3/index.md
+      - asg3/task-kprobe.md
+      - asg3/task-memhack.md
