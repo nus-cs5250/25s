@@ -78,10 +78,10 @@ Please create a file named "Makefile" in the same directory as "hello.c" with th
 obj-m += hello.o
 
 all:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+	make -C /lib/modules/$(shell uname -r)/build M=$(shell pwd) modules
 
 clean:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+	make -C /lib/modules/$(shell uname -r)/build M=$(shell pwd) clean
 ```
 
 Then run `make` to build the module. You should see a new file named "hello.ko" in the directory.
