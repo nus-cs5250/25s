@@ -1,6 +1,11 @@
-:root {
-  --md-default-fg-color: #1d1d1f;
-  --md-default-fg-color--light: #1d1d1f;
+@media screen {
+  [data-md-color-scheme="default"] {
+    --md-default-fg-color--light: #000000ef;
+  }
+
+  [data-md-color-scheme="slate"] {
+    --md-default-fg-color--light: hsla(var(--md-hue), 15%, 90%, 0.937);
+  }
 }
 
 .md-typeset h1,
