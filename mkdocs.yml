@@ -1,5 +1,5 @@
 site_name: CS5250 Assignments (2025 Spring)
-repo_url: http://github.com/nus-cs5250/25s
+repo_url: https://github.com/nus-cs5250/25s
 theme:
   name: material
   font:
