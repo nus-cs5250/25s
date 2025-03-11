@@ -1,15 +1,10 @@
-// https://jekyllcodex.org/without-plugin/new-window-fix/
-
-function external_new_window() {
-  for (var c = document.getElementsByTagName("a"), a = 0; a < c.length; a++) {
-    var b = c[a];
-    if (b.getAttribute("href") && b.hostname !== location.hostname) {
-      b.target = "_blank";
-      b.rel = "noopener";
+function openExternalLinksInNewTab() {
+  document.querySelectorAll("a[href]").forEach((link) => {
+    if (new URL(link.href, location.origin).hostname !== location.hostname) {
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
     }
-  }
+  });
 }
 
-window.addEventListener("DOMContentLoaded", function () {
-  external_new_window();
-});
+document.addEventListener("DOMContentLoaded", openExternalLinksInNewTab);
