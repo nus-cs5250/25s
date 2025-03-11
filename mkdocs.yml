@@ -2,6 +2,18 @@ site_name: CS5250 Assignments (2025 Spring)
 repo_url: http://github.com/nus-cs5250/25s
 theme:
   name: material
+  font:
+    text: Roboto
+    code: Roboto Mono
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
   features:
     - content.code.copy
     - content.code.select
@@ -9,9 +21,6 @@ theme:
     - navigation.sections
     - navigation.tabs
     - toc.integrate
-  font:
-    text: Roboto
-    code: Roboto Mono
 markdown_extensions:
   - admonition
   - footnotes
@@ -29,7 +38,7 @@ markdown_extensions:
 extra_javascript:
   - javascripts/open_in_new_tab.js
 extra_css:
-  - "stylesheets/extra.css"
+  - stylesheets/extra.css
 nav:
   - Home: index.md
   - Assignment 1:
