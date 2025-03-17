@@ -4,7 +4,7 @@
 
     Please read the [general instructions](../index.md) first.
 
-    The assignment is due **17:59 on 24 Mar 2025**.
+    The assignment is due **17:59 on 31 Mar 2025**.
     If the "Memory Management" lecture has not been completed by this date, the deadline will be extended to 17:59 on the following Monday after that lecture.
     Please refer to the due date set on Canvas for the most up-to-date deadline.
     No further announcements will be made regarding the extension if it occurs.
