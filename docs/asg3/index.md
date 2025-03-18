@@ -58,8 +58,7 @@ Please fix this problem and print the real address of the system call service ro
 This should be a one-line change in the kernel module.
 
 **Question 6 (2 marks):**
-What is the GDB command to print the entry in the syscall table for the system
-call you identified in the previous question?
+What is the GDB command to print the entry in the syscall table for the system call you identified in Question 1?
 
 **Question 7 (6 marks):**
 Please modify the provided kernel module to delay the movement of the bricks in the `tetris` game by 1 second.
