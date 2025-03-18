@@ -141,7 +141,7 @@ To locate the symbol name of the service routine, you can look up the syscall ta
 
 !!! question
 
-    What is the GDB command to print the entry in the syscall table for the system call you identified in the previous question?
+    What is the GDB command to print the entry in the syscall table for the system call you identified in Question 1?
 
 Having identified the symbol name of the service routine, you can proceed to modify the kernel module to hook the desired system call.
 After modifying the kernel module, build it and load it into the kernel.
