@@ -1,0 +1,1292 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../task-memhack/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+    
+    
+      
+        <title>Task 1: Hook System Calls with KProbes - CS5250 Assignments (2025 Spring)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4DCFEB3EM"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-Y4DCFEB3EM');
+</script>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#task-1-hook-system-calls-with-kprobes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="CS5250 Assignments (2025 Spring)" class="md-header__button md-logo" aria-label="CS5250 Assignments (2025 Spring)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CS5250 Assignments (2025 Spring)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Task 1: Hook System Calls with KProbes
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nus-cs5250/25s" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../asg1/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Assignment 1
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../asg2/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Assignment 2
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Assignment 3
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../asg4/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Assignment 4
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CS5250 Assignments (2025 Spring)" class="md-nav__button md-logo" aria-label="CS5250 Assignments (2025 Spring)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CS5250 Assignments (2025 Spring)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nus-cs5250/25s" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../asg1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Assignment 1
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Assignment 1
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg1/task-vm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 1: Setup a Virtual Machine
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg1/task-kbuild/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 2: Build and Install Linux Kernel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg1/task-boot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 3: Experience the Boot Sequence
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../asg2/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Assignment 2
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Assignment 2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg2/task-browsing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Optional: Get Around in the Source Code Tree
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg2/task-gdb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 1: Debugging with GDB
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg2/task-module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 2: Developing a Kernel Module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg2/task-syscall/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 3: Creating a New System Call
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Assignment 3
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Assignment 3
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Task 1: Hook System Calls with KProbes
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 1: Hook System Calls with KProbes
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-time-flies" class="md-nav__link">
+    <span class="md-ellipsis">
+      How Time Flies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wait-its-too-fast" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wait! It's Too fast!
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Wait! It&#39;s Too fast!">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-first-glance-at-kprobes" class="md-nav__link">
+    <span class="md-ellipsis">
+      A First Glance at KProbes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-the-hook-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      Find the Hook Point
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../task-memhack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 2: Memory Manipulation in Tetris Game
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../asg4/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Assignment 4
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Assignment 4
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg4/task-cloudinit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 0: Cloud-Init
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg4/task-pcidev/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 1: PCI Device
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg4/task-chardev/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 2: Character Device Driver and ioctl
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg4/task-interrupt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 3: Interrupt handler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="task-1-hook-system-calls-with-kprobes">Task 1: Hook System Calls with KProbes</h1>
+<p>Before beginning, download and execute the <code>tetris</code> binary and get familiarized with the game.</p>
+<h2 id="how-time-flies">How Time Flies</h2>
+<p>In this game, the bricks fall from the top of the screen by one row at a specific time interval.
+As you can imagine, there should be some mechanism to keep track of time and trigger the movement of the bricks.
+This can be achieved in generally two ways:
+One approach is to invoke a <code>sleep</code> system call to pause execution for the desired interval, then move the bricks when the process resumes.
+Another approach is to set up a timer and registers a callback function to execute when the timer expires, and move the bricks in the callback function.</p>
+<p>Since both methods require the use of system calls, let's use <code>strace</code> to observe how the game tracks time.
+We can get an initial idea of <code>strace</code> by running the following command:</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>strace cat /dev/null
+</code></pre></div>
+<p>A list of system calls made by the <code>cat</code> command, together with their arguments and return values, will be printed.
+However, if we run <code>strace ./tetris</code> directly, the output will be corrupted due to interleaved output both from the game and <code>strace</code>.
+It would be helpful to write the output of <code>strace</code> to a file and inspect it later.</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>strace -o &lt;filename&gt; ./tetris
+</code></pre></div>
+<p>Give a filename of your choice to the <code>-o</code> option, execute the command, and enjoy the game for a while.
+Then press <code>q</code> to quit the game and inspect the output file.</p>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>What is the name of the system call that the game uses to keep track of time?</p>
+</div>
+<p>Please read the man page of the system call, or ask ChatGPT if you need, to learn how to use it.
+Write a small program to demonstrate the use of the system call.
+(The program will be used to test the hooking mechanism later.)</p>
+<p>The <code>strace</code> outputs many system calls.
+To facilitate the analysis, some flag can be used to filter the output.
+Read the man page of <code>strace</code> to find the flag that can be used to filter the output of <code>strace</code> to only show the system call you identified in the previous question.</p>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Give the complete command to run <code>strace</code> so that:</p>
+<ul>
+<li>The output is written to a file.</li>
+<li>Only the system call that the game uses to keep track of time is shown.</li>
+<li>It's fine if there are some other outputs not related to system calls, e.g., information about signals or exit status.</li>
+</ul>
+</div>
+<h2 id="wait-its-too-fast">Wait! It's Too fast!</h2>
+<p>Now that you have identified the system call the game uses to track time, let’s see if we can slow things down, giving you more time to make decisions.
+Whether the game uses a sleep or a timer, the timing is always kept track of by the kernel.
+That means the kernel either returns from the system call after a set duration or sends a signal to the process when the timer expires.
+By intercepting this system call, we can tweak its arguments to extend the duration before the bricks move, effectively slowing down the game.</p>
+<p>To achieve this, we'll employ a kernel feature known as KProbes.
+KProbes allows inserting a probe at a specific kernel address and registering a callback function to be invoked when the probe is hit.
+This callback function can modify the arguments and return value of the probed function, or even bypass the system call and return directly to the caller.</p>
+<h3 id="a-first-glance-at-kprobes">A First Glance at KProbes</h3>
+<p>KProbe is implemented as a kernel module.
+A simple example of a kernel module using KProbes is provided in the repository in the "task1/hook" directory.
+This module intercepts the <code>__do_sys_ni_syscall</code> system call service routine and prints its arguments.</p>
+<p>Lines 26-28 of the code implement a simple filter, ensuring the probe triggers only when the <code>current</code> process has a <code>comm</code> field matching the specified string argument <code>comm</code>.
+When loading the module, you should provide an appropriate value to the <code>comm</code> argument to ensure the probe triggers only when the intended program is running.</p>
+<p>Here's a user program that invokes <code>__do_sys_ni_syscall</code>.</p>
+<div class="language-C highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">{</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="n">syscall</span><span class="p">(</span><span class="mi">423</span><span class="p">,</span><span class="w"> </span><span class="mh">0x10</span><span class="p">,</span><span class="w"> </span><span class="mh">0x20</span><span class="p">,</span><span class="w"> </span><span class="mh">0x30</span><span class="p">,</span><span class="w"> </span><span class="mh">0x40</span><span class="p">,</span><span class="w"> </span><span class="mh">0x50</span><span class="p">,</span><span class="w"> </span><span class="mh">0x60</span><span class="p">);</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">}</span>
+</code></pre></div>
+<p>After building and loading the kernel module, execute the user program.
+Then inspect the kernel log to observe the output of the kernel module.
+You will find the arguments passed to <code>__do_sys_ni_syscall</code> there.</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>hook: --- [[ Module loaded ]] ---
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>hook: intercepted [20092] test
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>hook: pre_handler: __do_sys_ni_syscall@00000000243ec603
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>hook: rdi = 0x10
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>hook: rsi = 0x20
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>hook: rdx = 0x30
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>hook: r10 = 0x40
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>hook: r8  = 0x50
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>hook: r9  = 0x60
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>hook: --- [[ Module unloaded ]] ---
+</code></pre></div>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>In the module, the first argument of the system call is accessed using <code>((struct pt_regs *)(regs-&gt;di))-&gt;di</code>.
+Why do we need such an indirection to retrieve the arguments of the system call instead of directly accessing <code>regs-&gt;di</code>?
+Please explain with a brief description of the call trace.</p>
+<p>Hint: <a href="https://www.kernel.org/doc/html/v6.13/trace/kprobes.html#how-does-a-kprobe-work">https://www.kernel.org/doc/html/v6.13/trace/kprobes.html#how-does-a-kprobe-work</a></p>
+</div>
+<p>Take note of the address of the system call service routine.
+You may find that it does not fall within the region of the "kernel text", as indicated in the <a href="https://www.kernel.org/doc/html/v6.13/arch/x86/x86_64/mm.html">memory layout documentation</a>.
+Why is this the case? How can you fix this problem?</p>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>What is the problem with the address of the system call service routine?
+How can you fix this problem and print the real address of the system call service routine?</p>
+<p>Hint: <a href="https://www.kernel.org/doc/html/v6.13/core-api/printk-formats.html">https://www.kernel.org/doc/html/v6.13/core-api/printk-formats.html</a></p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Please fix this problem and print the real address of the system call service routine.
+This should be a one-line change in the kernel module.</p>
+</div>
+<h3 id="find-the-hook-point">Find the Hook Point</h3>
+<p>To hook the system call, you need to find the symbol name of the service routine implementing the system call.
+You've done this in Pop Quiz 6, and you can do it again.
+However, with the <code>vmlinux</code> file available, you can use <code>gdb</code> to find the symbol name of the service routine.</p>
+<div class="language-console highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gp">$ </span>gdb<span class="w"> </span>vmlinux
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="go">&lt;some output omitted here&gt;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="gp gp-VirtualEnv">(gdb)</span> <span class="go">print sys_call_table</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="gp">$</span><span class="nv">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span>...<span class="o">}</span>
+</code></pre></div>
+<p>This command prints the contents of the <code>sys_call_table</code> variable, which is a lengthy array of function pointers.
+To locate the symbol name of the service routine, you can look up the syscall table to find the syscall number of the system call, and then print only that entry in the syscall table.</p>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>What is the GDB command to print the entry in the syscall table for the system call you identified in Question 1?</p>
+</div>
+<p>Having identified the symbol name of the service routine, you can proceed to modify the kernel module to hook the desired system call.
+After modifying the kernel module, build it and load it into the kernel.
+In a previous step, you wrote a small program to demonstrate the use of the system call.
+Now, execute the program and review the kernel log to observe the output.</p>
+<p>Now that we've successfully hooked the system call and accessed its arguments, we can modify them to extend the time before the bricks move again.</p>
+<p>However, it might not be as simple as it seems to hook at the very beginning of the system call service routine.
+One important argument is passed as a pointer to a user-space address.
+Directly modifying this value in user space might trigger the game's cheat detection system, causing it to refuse execution.
+To avoid this, it would be better to modify the value in kernel space.
+But the control flow, after the pre-handler is executed, will return to the original service routine.
+The original service routine assumes that the pointer still references a valid user-space address.
+If the pointer instead references a kernel-space address, the original service routine could crash.</p>
+<p>Let's find a workaround.</p>
+<p>Locate the system call definition in the kernel source code and examine how it handles the arguments.
+Can you identify another function to hook, where the important argument is already in kernel space?</p>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Modify the kernel module to:</p>
+<ul>
+<li>Hook the new function you found.</li>
+<li>Increment the duration <strong>by</strong> one second. (Not "to" one second.)</li>
+<li>Adjust the <code>MODULE_AUTHOR</code> to your name.</li>
+</ul>
+</div>
+<p>After loading the kernel module, run the game and observe if the time flows slower.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.code.select", "navigation.indexes", "navigation.sections", "navigation.tabs", "toc.integrate"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../javascripts/open_in_new_tab.js"></script>
+      
+    
+  </body>
+</html>
