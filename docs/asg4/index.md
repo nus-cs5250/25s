@@ -37,7 +37,7 @@ Why can't we read from the file `resource0`?
 
 Please write a C program that operates the `resource0` of the PCI device by mapping it into the process's address space.
 
-### [Task 2: Character Device Driver](task-chardev.md)
+### [Task 2: Character Device Driver and `ioctl`](task-chardev.md)
 
 **Question 4 (4 marks)**
 
