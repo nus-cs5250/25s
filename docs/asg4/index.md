@@ -51,8 +51,7 @@ Please write a C program that interacts with the character device driver using i
 
 **Question 6 (18 marks)**
 
-Please finish the implementation under the directory `task3-factorial/` in the
-repository.
+Please finish the implementation under the directory `task3/edu-irq/` in the repository.
 
 ### Submission Guidelines
 
