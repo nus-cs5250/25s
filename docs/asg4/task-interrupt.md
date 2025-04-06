@@ -37,24 +37,24 @@ Here's the expected behavior of the device:
 
 ```console
 $ sudo insmod edu.ko
-$ echo 1 | sudo tee /dev/factorial0
+$ echo 1 | sudo tee /dev/edu0
 1
-$ sudo cat /dev/factorial0
+$ sudo cat /dev/edu0
 fact(1) = 1
-$ echo 5 | sudo tee /dev/factorial0
+$ echo 5 | sudo tee /dev/edu0
 5
-$ sudo cat /dev/factorial0
+$ sudo cat /dev/edu0
 fact(5) = 120
-$ echo x | sudo tee /dev/factorial0
+$ echo x | sudo tee /dev/edu0
 x
-$ sudo cat /dev/factorial0
+$ sudo cat /dev/edu0
 fact(5) = 120
 $ echo 12 > tmp.in
-$ sudo dd if=tmp.in of=/dev/factorial0 bs=1
+$ sudo dd if=tmp.in of=/dev/edu0 bs=1
 3+0 records in
 3+0 records out
 3 bytes copied, 4.9727e-05 s, 60.3 kB/s
-$ sudo dd if=/dev/factorial0 of=tmp.out bs=1
+$ sudo dd if=/dev/edu0 of=tmp.out bs=1
 21+0 records in
 21+0 records out
 21 bytes copied, 0.00015907 s, 132 kB/s
