@@ -65,5 +65,4 @@ $ sudo rmmod edu
 
 !!! question
 
-    Please finish the implementation under the directory `task3-factorial/` in
-    the repository.
+    Please finish the implementation under the directory `task3/edu-irq/` in the repository.
