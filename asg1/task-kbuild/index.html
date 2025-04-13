@@ -1,0 +1,1425 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../task-vm/">
+      
+      
+        <link rel="next" href="../task-boot/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+    
+    
+      
+        <title>Task 2: Build and Install Linux Kernel - CS5250 Assignments (2025 Spring)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4DCFEB3EM"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-Y4DCFEB3EM');
+</script>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#task-2-build-and-install-linux-kernel" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="CS5250 Assignments (2025 Spring)" class="md-header__button md-logo" aria-label="CS5250 Assignments (2025 Spring)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CS5250 Assignments (2025 Spring)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Task 2: Build and Install Linux Kernel
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nus-cs5250/25s" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Assignment 1
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../asg2/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Assignment 2
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../asg3/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Assignment 3
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../asg4/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Assignment 4
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CS5250 Assignments (2025 Spring)" class="md-nav__button md-logo" aria-label="CS5250 Assignments (2025 Spring)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CS5250 Assignments (2025 Spring)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nus-cs5250/25s" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Assignment 1
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Assignment 1
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../task-vm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 1: Setup a Virtual Machine
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Task 2: Build and Install Linux Kernel
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 2: Build and Install Linux Kernel
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fetch-the-kernel-source-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fetch the kernel source code
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fetch the kernel source code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clone-the-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clone the tree
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#download-kernel-source-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Download kernel source code
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-the-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check the version
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-and-install-the-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build and install the kernel
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Build and install the kernel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configure-the-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure the kernel
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-and-install-linux-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build and install linux kernel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-grub" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure GRUB
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customize-the-kernel-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customize the kernel build
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Customize the kernel build">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#menuconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      menuconfig
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shrink-the-kernel-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shrink the kernel image
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../task-boot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 3: Experience the Boot Sequence
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../asg2/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Assignment 2
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Assignment 2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg2/task-browsing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Optional: Get Around in the Source Code Tree
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg2/task-gdb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 1: Debugging with GDB
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg2/task-module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 2: Developing a Kernel Module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg2/task-syscall/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 3: Creating a New System Call
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../asg3/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Assignment 3
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Assignment 3
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg3/task-kprobe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 1: Hook System Calls with KProbes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg3/task-memhack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 2: Memory Manipulation in Tetris Game
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../asg4/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Assignment 4
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Assignment 4
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg4/task-cloudinit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 0: Cloud-Init
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg4/task-pcidev/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 1: PCI Device
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg4/task-chardev/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 2: Character Device Driver and ioctl
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg4/task-interrupt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 3: Interrupt handler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="task-2-build-and-install-linux-kernel">Task 2: Build and Install Linux Kernel</h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you are using the course-provided server, kindly perform this task within your VM.
+<strong>At no point should you attempt to install the kernel built by yourself directly in the server.</strong></p>
+</div>
+<h2 id="fetch-the-kernel-source-code">Fetch the kernel source code</h2>
+<p>To access the Linux kernel releases, visit the official website at <a href="https://www.kernel.org">https://www.kernel.org</a>.
+These releases fall into several main categories: mainline, stable, and long-term.
+For more information on the different categories, please check
+<a href="https://www.kernel.org/category/releases.html">this page</a>.</p>
+<p>In this semester, we will work with the latest mainline release when the course begins, which is Linux 6.13.
+You can find the repository for the mainline tree at
+<a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git">https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git</a>
+and the repository for the stable tree at
+<a href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git">https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git</a>.</p>
+<p>To obtain a local copy of the code, we have two options:</p>
+<ol>
+<li>Download a release.</li>
+<li>Clone the repository.</li>
+</ol>
+<p>You can choose the method that best suits your needs, as different tasks may require different approaches.</p>
+<h3 id="clone-the-tree">Clone the tree</h3>
+<p>To work with Linux kernel sources and perform tasks such as generating a patch, you'll need to clone the git tree.
+Use the following command to clone the repository:</p>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span><span class="w"> </span>--branch<span class="w"> </span>v6.13
+</code></pre></div>
+<p>Here's what each option does:</p>
+<ul>
+<li>
+<p><code>--depth 1</code>:</p>
+<p>Creates a shallow clone with the history truncated to only one commit, reducing the size of downloaded git objects.</p>
+</li>
+</ul>
+<ul>
+<li>
+<p><code>--branch xxx</code>:</p>
+<p>Specifies the branch (or tag) to clone.</p>
+</li>
+</ul>
+<h3 id="download-kernel-source-code">Download kernel source code</h3>
+<p>To download a kernel source code release, visit this link: <a href="https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.13.tar.xz">https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.13.tar.xz</a>.</p>
+<p>All kernel releases are cryptographically signed.
+To ensure the integrity of your downloaded kernel releases, follow the instructions provided <a href="https://www.kernel.org/category/signatures.html">here</a>.</p>
+<h3 id="check-the-version">Check the version</h3>
+<p>Execute the following command to check which version you currently have:</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>make kernelversion
+</code></pre></div>
+<p>If you obtained the kernel source code by cloning the repository, you may also check the commit history:</p>
+<div class="language-console highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="go">git log -1</span>
+</code></pre></div>
+<h2 id="build-and-install-the-kernel">Build and install the kernel</h2>
+<div class="admonition info">
+<p class="admonition-title">Additional dependencies</p>
+<p>In this part, you may encounter errors like:</p>
+<ul>
+<li>Command not found: <code>xxx</code></li>
+<li>Unable to find <code>xxx</code> package</li>
+<li>...</li>
+</ul>
+<p>This indicates that specific programs, libraries, or headers are missing on your machine.
+You'll need to install the necessary dependencies.
+Typically, this involves installing Ubuntu software packages required for kernel building.
+As you continue, you'll become more comfortable with this process.</p>
+</div>
+<h3 id="configure-the-kernel">Configure the kernel</h3>
+<p>There are several ways to configure the kernel.
+You can choose one of the following methods:</p>
+<ul>
+<li>
+<p><strong><code>make defconfig</code></strong></p>
+<p>This command creates a default configuration file for the kernel.
+The default configuration is a good starting point, but you may want to customize it further.</p>
+</li>
+</ul>
+<ul>
+<li>
+<p><strong><code>make menuconfig</code></strong></p>
+<p>This command opens a menu that allows you to customize the kernel configuration.
+If there is no configuration file in the current directory, the command will create a new one based on the configuration of the kernel currently running on your machine.
+It is recommended to use this method if you are not using VirtualBox.</p>
+</li>
+</ul>
+<p>You can check other configuration options by running <code>make help</code>.</p>
+<h3 id="build-and-install-linux-kernel">Build and install linux kernel</h3>
+<ol>
+<li>
+<p><strong><code>make -j$(nproc)</code></strong></p>
+<p>Compiling the kernel is a time-consuming task.
+ The <code>-j</code> option specifies the number of jobs to run simultaneously.
+ The <code>nproc</code> command returns the number of processing units available to the current process.
+ By running multiple jobs in parallel, you can speed up the compilation process.
+ However, be careful not to overload your machine with too many jobs, as this can cause it to hang.</p>
+<p>Depending on your machine’s specifications, the compilation process may take 10–20 minutes, but YMMV.
+ While you wait, you can consider ways to optimize the process for future builds.</p>
+</li>
+<li>
+<p><strong><code>make modules_install</code></strong></p>
+<p>This command is used to install kernel modules.</p>
+</li>
+<li>
+<p><strong><code>make install</code></strong></p>
+<p>This command installs the newly built kernel.
+ It's the final step in getting your custom kernel ready for use.
+ Please try to find out which directory the kernel image is installed to.</p>
+</li>
+</ol>
+<h2 id="configure-grub">Configure GRUB</h2>
+<p>The kernel image is now in the correct location.
+However, the bootloader might not be aware of it yet.</p>
+<p>The boot order of the operating systems is specified in <code>/boot/grub/grub.cfg</code>.
+By updating this file, you can modify the default OS, the sequence of different kernel releases, and the behaviour of the GRUB menu.</p>
+<p>Try to figure out how to update this file (or how the file is updated).
+The original settings in related files and some online research will be very helpful.
+Please note that root privileges are required for this step.</p>
+<p>If this is your first time performing this operation, it is recommended to create a backup or snapshot before proceeding.</p>
+<p>After rebooting, check whether the boot option appears as expected.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>By default, the GRUB menu is hidden.
+You can press and hold the <code>Shift</code> key during boot to display the menu.
+You can also change the default behaviour by modifying the GRUB configuration file.</p>
+</div>
+<p><img alt="GRUB Menu" src="../grub-menu.png" /></p>
+<p>If everything goes well, you should see the login prompt.
+After logging in, some messages (motd) will be printed out.
+The kernel release version, which should have changed to the new one, is reflected in the first line.</p>
+<p>It is expected that the new kernel will start up without any problems if you follow the instructions correctly.
+If something does go wrong, check the error messages and try to figure out what caused the issue.
+You may ask your friends or the TA for help if you get stuck at this step.</p>
+<h2 id="customize-the-kernel-build">Customize the kernel build</h2>
+<p>In this task, you will build a smaller kernel image that will successfully boot up on your virtual machine.
+You can do so by customizing the kernel configuration and removing unnecessary features.</p>
+<h3 id="menuconfig">menuconfig</h3>
+<p>To customize the kernel configuration, you may use the <code>menuconfig</code> tool.</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>make menuconfig
+</code></pre></div>
+<p>This command will open a menu that allows you to customize the kernel configuration.
+<img alt="menuconfig" src="../menuconfig.png" /></p>
+<p>You will typically encounter three options for most features: <code>built-in</code>, <code>excluded</code>, and <code>module</code>.
+What do these choices mean, and which one(s) cause the related functions to be included in the kernel image?</p>
+<p>Feel free to explore other ways to update the config.
+You may start from checking the information from <code>make help</code>.</p>
+<h3 id="shrink-the-kernel-image">Shrink the kernel image</h3>
+<p>Please try to shrink the kernel image by removing unnecessary features.
+Please note:</p>
+<ul>
+<li>Keep the original kernel for comparison.</li>
+<li>Give your smaller kernel a different name from the one built in the previous task.
+  You can add suffix to the kernel release version by updating <code>LOCALVERSION</code> in the kernel config to identify your kernel images.
+  Use the search function of <code>menuconfig</code> to find where to modify the option.</li>
+<li>To check if the VM has successfully booted up, verify that the VM reaches the same login screen as your original kernel.</li>
+<li>Your goal is to reduce the size of the kernel image (<code>./arch/x86/boot/bzImage</code>) to no larger than 8 MiB (8388608 bytes).
+  You'll get at least 2 marks if the kernel image is smaller than 10 MiB and full marks if it's smaller than 8 MiB.
+  There's no need to shrink it excessively.</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>When you attempt to boot with your new kernel after removing certain features, expect something strange to happen.
+It's a good idea to document the changes you made to the kernel configuration.
+This record will be handy in figuring out the cause of any issues that arise.
+This part of the assignment is designed to prompt you to observe the effects of disabling specific features, understand their importance, and then work on fixing any resulting problems.</p>
+</div>
+<p>For your submission, build your customized kernel into a DEB package using the following command:</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>make bindeb-pkg
+</code></pre></div>
+<p>You may need additional dependencies to build the DEB package successfully.
+After doing so, several new files should be generated in the parent folder (not the current directory).
+Submit the file whose name starts with <code>linux-image</code>.
+You can check the file using the commands below:</p>
+<ol>
+<li><code>dpkg -c linux-image-6.13.0*_6.13.0-*_amd64.deb</code>
+   This command lists the contents of the DEB package.
+   Inside the package, there should be a file named <code>./boot/vmlinuz-6.13.0...</code>.
+   If not, you might be looking at the wrong file.</li>
+<li>
+<p><code>dpkg -f linux-image-6.13.0*_6.13.0-*_amd64.deb Maintainer</code>
+   This command extracts the <code>Maintainer</code> information from the control file in the DEB package.
+   The output should be like:</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>user &lt;user@hostname&gt;
+</code></pre></div>
+<p><strong>Please note: <code>user</code> should not be <code>root</code>.</strong></p>
+</li>
+</ol>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Please submit the DEB package <code>linux-image-6.13.0*_6.13.0-*_amd64.deb</code> containing your customized smaller kernel <strong>on Canvas</strong>.</p>
+<ul>
+<li>You should upload the DEB package on Canvas, and a checksum file in the Git repository.
+  The checksum file can be generated using the script provided in repository.
+  <div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>task2/generate_checksum<span class="w"> </span>/path/to/deb/package
+</code></pre></div></li>
+<li>The DEB package must boot up successfully on your VM.
+  If your kernel boots up successfully, you'll get some marks based on the size of the kernel image.</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.code.select", "navigation.indexes", "navigation.sections", "navigation.tabs", "toc.integrate"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../javascripts/open_in_new_tab.js"></script>
+      
+    
+  </body>
+</html>

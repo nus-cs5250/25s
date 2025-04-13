@@ -1,0 +1,1447 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../task-kbuild/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+    
+    
+      
+        <title>Task 1: Setup a Virtual Machine - CS5250 Assignments (2025 Spring)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4DCFEB3EM"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-Y4DCFEB3EM');
+</script>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#task-1-setup-a-virtual-machine" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="CS5250 Assignments (2025 Spring)" class="md-header__button md-logo" aria-label="CS5250 Assignments (2025 Spring)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CS5250 Assignments (2025 Spring)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Task 1: Setup a Virtual Machine
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nus-cs5250/25s" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Assignment 1
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../asg2/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Assignment 2
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../asg3/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Assignment 3
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../asg4/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Assignment 4
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CS5250 Assignments (2025 Spring)" class="md-nav__button md-logo" aria-label="CS5250 Assignments (2025 Spring)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CS5250 Assignments (2025 Spring)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nus-cs5250/25s" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Assignment 1
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Assignment 1
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Task 1: Setup a Virtual Machine
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 1: Setup a Virtual Machine
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#install-virtualbox-on-your-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install VirtualBox on your machine
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-an-iso-image-of-linux-ubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Download an ISO image of Linux Ubuntu
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-and-launch-a-virtual-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create and launch a virtual machine
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-os-for-your-vm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install OS for your VM
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-ssh-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting up SSH connection
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-shared-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting up shared folder
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recovery-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recovery (Optional)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../task-kbuild/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 2: Build and Install Linux Kernel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../task-boot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 3: Experience the Boot Sequence
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../asg2/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Assignment 2
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Assignment 2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg2/task-browsing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Optional: Get Around in the Source Code Tree
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg2/task-gdb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 1: Debugging with GDB
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg2/task-module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 2: Developing a Kernel Module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg2/task-syscall/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 3: Creating a New System Call
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../asg3/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Assignment 3
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Assignment 3
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg3/task-kprobe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 1: Hook System Calls with KProbes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg3/task-memhack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 2: Memory Manipulation in Tetris Game
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../asg4/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Assignment 4
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Assignment 4
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg4/task-cloudinit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 0: Cloud-Init
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg4/task-pcidev/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 1: PCI Device
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg4/task-chardev/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 2: Character Device Driver and ioctl
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asg4/task-interrupt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Task 3: Interrupt handler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="task-1-setup-a-virtual-machine">Task 1: Setup a Virtual Machine</h1>
+<p>It is common to have problems during the setup stage.
+Try to figure it out yourself first.
+Remember to read the error messages carefully and search online for solutions.
+The abilities to search and debug is crucial in dealing with Linux.</p>
+<p>However, if you cannot find solutions after you try all approaches you can think of, feel free to discuss it with your classmates or email the TA.</p>
+<div class="admonition warning">
+<p class="admonition-title">Not using an x86 machine?</p>
+<p>These assignments are designed with the assumption that you're using an x86-64 machine.
+If you don't have access to an x86-based machine, you should have already requested a server for your assignments.</p>
+<p>Please note that you won't have access to the graphical interface of the remote machine, so additional steps may be required.
+Refer to the relevant tabs for instructions tailored to your situation.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Local Machine</label><label for="__tabbed_1_2">Remote Server</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>These instructions are for students who are using their own x86 machines.</p>
+</div>
+<div class="tabbed-block">
+<p>These instructions are for students who are using the remote server provided by the course.</p>
+</div>
+</div>
+</div>
+</div>
+<h2 id="install-virtualbox-on-your-machine">Install VirtualBox on your machine</h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Local Machine</label><label for="__tabbed_2_2">Remote Server</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>VirtualBox is an open-source software that runs on most common platforms.
+Please download the latest version from <a href="https://www.virtualbox.org/wiki/Downloads">page</a> and install it on your machine.
+It should work on all major x86-based platforms.</p>
+</div>
+<div class="tabbed-block">
+<p><strong>You'll still be working with VirtualBox.</strong></p>
+<p>For some parts of the assignment, you will need to operate the machine even before the operating system is fully booted.
+Therefore, it is necessary to work in a virtual machine under your full control, even though the server is already pre-installed with Ubuntu.</p>
+<p>The server we provide already has VirtualBox and the extension pack installed.
+You can use the following command to check the version of VirtualBox:</p>
+<div class="language-console highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">$ </span>VBoxManage<span class="w"> </span>--version
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="go">7.0.16_Ubuntur162802</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="download-an-iso-image-of-linux-ubuntu">Download an ISO image of Linux Ubuntu</h2>
+<p>You can download the Ubuntu Server 24.04.1 LTS install image for a 64-bit machine from <a href="https://download.nus.edu.sg/mirror/ubuntu-releases/24.04/ubuntu-24.04.1-live-server-amd64.iso">here</a> or from <a href="https://ubuntu.com/download/server">Ubuntu's official website</a>.</p>
+<h2 id="create-and-launch-a-virtual-machine">Create and launch a virtual machine</h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Local Machine</label><label for="__tabbed_3_2">Remote Server</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ol>
+<li>Start VirtualBox</li>
+<li>Click "New" button in the Oracle VM VirtualBox Manager.</li>
+<li>Use the setting listed below<ul>
+<li>Name and the Operating System<ul>
+<li>Name: CS5250 (or anything you like)</li>
+<li>ISO Image: Choose the ISO file you downloaded</li>
+<li>Check "Skip Unattended Installation"</li>
+</ul>
+</li>
+<li>Hardware<ul>
+<li>Base Memory: 2048 MB (or larger, you can change this when needed)</li>
+<li>Processors: 2 (or more, you can change this when needed)</li>
+</ul>
+</li>
+<li>Hard Disk<ul>
+<li>Create a virtual hard disk now.</li>
+<li>Allocate at least 40 GB</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Click "Finish"</li>
+</ol>
+<p>Start your virtual machine by clicking "Start" in VirtualBox Manager.</p>
+</div>
+<div class="tabbed-block">
+<p>You will use the <code>VBoxManage</code> command to create and manage your virtual machine.
+After that, you can then connect to it from your local machine via the Remote Desktop Protocol.</p>
+<p>For an overview of how to create a VM on a headless server, refer to <a href="https://www.virtualbox.org/manual/ch07.html#headless-vm-steps">Section 7.1.3</a>.
+Keep the following points in mind:</p>
+<ul>
+<li>The example provided in the manual is for Windows XP, but we intend to use Linux as the Guest OS.
+  Adjust the <code>ostype</code> accordingly to match your requirements.
+  You may find the list of supported OS types using <code>VBoxManage list</code> command <a href="https://www.virtualbox.org/manual/ch08.html#vboxmanage-list">(see here)</a>.</li>
+<li>When configuring your VM, choose an appropriate number of CPUs, memory size, and virtual hard disk size.
+  We recommend setting it to 2 CPUs, 2 GB of memory, and 40 GB of disk space.</li>
+</ul>
+<p>Here’s a sample script to create and configure a VM.
+Use it with caution and adjust it according to your requirements.
+<strong>Copying and pasting the script without reviewing it is highly discouraged.</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Create a virtual machine</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>VBoxManage<span class="w"> </span>createvm<span class="w"> </span>--name<span class="w"> </span>&lt;VM-name&gt;<span class="w"> </span>--ostype<span class="w"> </span><span class="s2">&quot;Ubuntu_64&quot;</span><span class="w"> </span>--register
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Configure virtual hardware resources</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>VBoxManage<span class="w"> </span>modifyvm<span class="w"> </span>&lt;VM-name&gt;<span class="w"> </span>--cpus<span class="w"> </span><span class="m">2</span><span class="w"> </span>--memory<span class="w"> </span><span class="m">2048</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Create a virtual hard disk (40GiB)</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="nb">pushd</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/VirtualBox VMs/&lt;VM-name&gt;&quot;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>VBoxManage<span class="w"> </span>createmedium<span class="w"> </span>disk<span class="w"> </span>--filename<span class="w"> </span><span class="s2">&quot;&lt;VM-name&gt;.vmdk&quot;</span><span class="w"> </span>--size<span class="w"> </span><span class="m">40960</span><span class="w"> </span>--format<span class="w"> </span>VMDK
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>VBoxManage<span class="w"> </span>storagectl<span class="w"> </span>&lt;VM-name&gt;<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;SATA Controller&quot;</span><span class="w"> </span>--add<span class="w"> </span>sata<span class="w"> </span>--controller<span class="w"> </span>IntelAHCI
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>VBoxManage<span class="w"> </span>storageattach<span class="w"> </span>&lt;VM-name&gt;<span class="w"> </span>--storagectl<span class="w"> </span><span class="s2">&quot;SATA Controller&quot;</span><span class="w"> </span>--port<span class="w"> </span><span class="m">0</span><span class="w"> </span>--device<span class="w"> </span><span class="m">0</span><span class="w"> </span>--type<span class="w"> </span>hdd<span class="w"> </span>--medium<span class="w"> </span><span class="s2">&quot;&lt;VM-name&gt;.vmdk&quot;</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="nb">popd</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="c1"># Create a virtual DVD drive with installation ISO</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>VBoxManage<span class="w"> </span>storagectl<span class="w"> </span>&lt;VM-name&gt;<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;IDE Controller&quot;</span><span class="w"> </span>--add<span class="w"> </span>ide
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>VBoxManage<span class="w"> </span>storageattach<span class="w"> </span>&lt;VM-name&gt;<span class="w"> </span>--storagectl<span class="w"> </span><span class="s2">&quot;IDE Controller&quot;</span><span class="w"> </span>--port<span class="w"> </span><span class="m">0</span><span class="w"> </span>--device<span class="w"> </span><span class="m">0</span><span class="w"> </span>--type<span class="w"> </span>dvddrive<span class="w"> </span>--medium<span class="w"> </span>/path/to/ubuntu-24.04.1-live-server-amd64.iso
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="c1"># Enable VRDP</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>VBoxManage<span class="w"> </span>modifyvm<span class="w"> </span>&lt;VM-name&gt;<span class="w"> </span>--vrde<span class="w"> </span>on
+</code></pre></div>
+<p>You may use the following command to check the configuration of your VM:</p>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$<span class="w"> </span>VBoxManage<span class="w"> </span>showvminfo<span class="w"> </span>cs5250
+</code></pre></div>
+<p>A RDP client is needed to connect to the VM.
+For Mac users, you can install "Windows App" from the App Store.</p>
+<p>The VRDP server that comes with VirtualBox typically uses TCP port 3389 by default.
+However, for security reasons, this port is disabled using <a href="https://ubuntu.com/server/docs/security-firewall">ufw</a> on the server.
+You should use SSH port forwarding to map the VRDP port to your local machine by executing the following command on your local machine:</p>
+<div class="language-bash highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ssh<span class="w"> </span>-L<span class="w"> </span><span class="m">3389</span>:localhost:3389<span class="w"> </span>&lt;username&gt;@&lt;server-ip&gt;
+</code></pre></div>
+<p>This command establishes a secure SSH tunnel, forwarding traffic from port 3389 on your local machine to port 3389 on the server, facilitating secure access to the VRDP server on the remote machine as if it were running locally.</p>
+<p>Then you can start the virtual machine by executing the following command on the server:</p>
+<div class="language-console highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gp">$ </span>VBoxHeadless<span class="w"> </span>--startvm<span class="w"> </span>&lt;VM-name&gt;
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="go">Oracle VM VirtualBox Headless Interface 7.0.16_Ubuntu</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="go">Copyright (C) 2008-2024 Oracle and/or its affiliates</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="go">Starting virtual machine: VRDE server is listening on port 3389.</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="go">10%...20%...30%...40%...50%...60%...70%...80%...90%...100%</span>
+</code></pre></div>
+<p>Once initiated, connect to the virtual machine using your RDP client.
+Since the port has been forwarded to your local machine, set the "PC name" as either <code>localhost</code> or <code>127.0.0.1</code>.
+If you are required to enter a username and password, use the username you used to SSH into the server and the password you set.</p>
+<div class="admonition info">
+<p class="admonition-title">Remove VNC Extension Pack</p>
+<p>When installing the VirtualBox Extension Pack, a VNC extension pack may be installed by default.
+This extension pack may cause conflicts with the VRDP server.
+If you have trouble connecting to the VRDP server, you may try uninstalling the VNC extension pack.</p>
+<p>You may check if the VNC extension pack is installed using the following command:</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$ VBoxManage list extpacks
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>Extension Packs: 2
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Pack no. 0:   VNC
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>Version:        7.0.16
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>Revision:       162802
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>Edition:
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>Description:    VNC plugin module
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>VRDE Module:    VBoxVNC
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>Crypto Module:
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>Usable:         true
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>Why unusable:
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>Pack no. 1:   Oracle VM VirtualBox Extension Pack
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>Version:        7.0.16
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>Revision:       162802
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>Edition:
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>Description:    Oracle Cloud Infrastructure integration, Host Webcam, VirtualBox RDP, PXE ROM, Disk Encryption, NVMe, full VM encryption.
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>VRDE Module:    VBoxVRDP
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>Crypto Module:  VBoxPuelCrypto
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>Usable:         true
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>Why unusable:
+</code></pre></div>
+<p>If the VNC extension pack is installed, you can uninstall it using the following command:</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>$ sudo VBoxManage extpack uninstall VNC
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>[sudo] password for sadm:
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>Successfully uninstalled &quot;VNC&quot;.
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<h2 id="install-os-for-your-vm">Install OS for your VM</h2>
+<p>Follow the guided installation process to install Ubuntu on your virtual machine.
+Please take note of the following settings:</p>
+<ul>
+<li><strong>Keyboard configuration</strong>:
+  If you are using a Mac keyboard, the layout may be different from the standard ANSI or ISO ones.
+  You may try a "Keyboard Variant" ending with <code>(Macintosh)</code>.</li>
+<li><strong>Guided storage configuration</strong>:
+  Please uncheck the "Set up this disk as an LVM group" option.</li>
+<li><strong>Profile configuration</strong>:<ul>
+<li><strong>Name</strong>: Enter your full name.</li>
+<li><strong>Server's Name</strong>: Choose a name that starts with your NUSNET ID.</li>
+<li><strong>Username</strong>: Choose a username that is formed from your real name.</li>
+<li><strong>Password</strong>: Choose a secure password.</li>
+</ul>
+</li>
+<li><strong>SSH configuration</strong>:<ul>
+<li>Ensure to check the "Install OpenSSH server" option.</li>
+</ul>
+</li>
+</ul>
+<p>After reboot, you shall see some logs doing initial setup, which is output by "cloud-init".
+When it is done, press "Enter" and you should see the login prompt.</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>&lt;hostname&gt; login:
+</code></pre></div>
+<p>To login, input your username, press "Enter", and then input your password<sup id="fnref:pwd"><a class="footnote-ref" href="#fn:pwd">1</a></sup> as required.
+And you will see the bash prompt.</p>
+<div class="language-text highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>user@&lt;hostname&gt;:~$
+</code></pre></div>
+<p>As a beginner, you may try to find and print the information below.</p>
+<ul>
+<li>The OS version and the kernel release version</li>
+<li>The IP address allocated, and your MAC address</li>
+</ul>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>What is the IP address allocated to your VM?
+Please take a screenshot of the command and its output that shows the IP address.</p>
+<p>Please adjust the terminal width to 80-120 characters when you take the screenshot, so that the screenshot is easily readable.</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Different CPUs may have different features even if they are based on the same architecture.
+<a href="https://en.wikipedia.org/wiki/Supervisor_Mode_Access_Prevention">SMAP</a> is one of the features commonly available in modern CPUs, but it may not be properly virtualized in some virtual machines.
+Is SMAP available in the VM you have created?
+Please write a shell script to check if SMAP is available in the VM.</p>
+<p>Hint:
+The <code>xlogin</code> nodes in the <a href="https://dochub.comp.nus.edu.sg/cf/guides/compute-cluster/start">SoC Compute Cluster</a> should have SMAP available.
+You can use it as a reference.</p>
+</div>
+<h2 id="setting-up-ssh-connection">Setting up SSH connection</h2>
+<p>Configure the virtual machine to allow connection via SSH from the host<sup id="fnref:host"><a class="footnote-ref" href="#fn:host">2</a></sup> machine.
+Once the SSH connection is set up, you can access the VM from your host machine using a terminal or an SSH client.
+You can even attach VSCode to the VM for a better experience.</p>
+<p>To achieve this, you will need to modify the network settings of the VM and configure port forwarding to make the VM’s SSH port accessible from the host machine.</p>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Whenever you log in to the VM, either locally through the console or remotely via SSH, the system authenticates you using your password or SSH key.
+These login activities are recorded in the system log file located at <code>/var/log/auth.log</code>.
+Locate the log entries that record your successful login to the system <strong>via SSH</strong>, take a screenshot of the relevant section of the log, and highlight on the screenshot:</p>
+<ul>
+<li>Which part of the log indicates the login activity occurred via SSH.</li>
+<li>Is the accepted authentication method, whether it was a password or an SSH key.</li>
+</ul>
+<p>Please adjust the terminal width to 80-120 characters when you take the screenshot, so that the screenshot is easily readable.</p>
+</div>
+<h2 id="setting-up-shared-folder">Setting up shared folder</h2>
+<p>A shared folder is a directory can be accessed and used by both the host machine (where VirtualBox is installed) and the guest virtual machine (VM) running within VirtualBox.
+This feature allows for the seamless exchange of files between the host<sup id="fnref2:host"><a class="footnote-ref" href="#fn:host">2</a></sup> and the VM.</p>
+<p>Please create a folder on your host machine and make it accessible to the VM.</p>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>It’s common need to check how much storage is available in your VM, and this can be done by running the <code>df</code> command.
+Please refer to the man page of <code>df</code> by executing <code>man df</code> and learn how to</p>
+<ul>
+<li>output the available storage in a human-readable format, as well as</li>
+<li>the type of the filesystems.</li>
+</ul>
+<p>Take a screenshot of the command and its output showing the available storage in a human-readable format, along with the type of filesystems. Highlight the line that represents the shared folder.</p>
+<p>Please adjust the terminal width to 80-120 characters when you take the screenshot, so that the screenshot is easily readable.</p>
+</div>
+<h2 id="recovery-optional">Recovery (Optional)</h2>
+<p>In case you encounter an irreparable issue with the VM, simply repeat the aforementioned steps to set up a new one.
+However, any work previously done will be lost.</p>
+<p>Creating a snapshot of your virtual machine can be a lifesaver.
+A snapshot captures the current state of the virtual machine, which you can revert to at any time.
+This means if something goes wrong, you won't lose all your work - you can simply revert to the snapshot.
+But that takes up disk space, so use it sparingly.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:pwd">
+<p>In case you don't know, the password you type will not be displayed on the screen.
+Please just type it blindly and press "Enter".&#160;<a class="footnote-backref" href="#fnref:pwd" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:host">
+<p>"Host" refers to the machine where VirtualBox is installed and running.
+For instance, if you run VirtualBox locally on your Windows laptop, the "host" refers to Windows.
+If you are using a MacBook with VirtualBox installed remotely on a server, the "host" refers to the remote server rather than your MacBook.&#160;<a class="footnote-backref" href="#fnref:host" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:host" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.code.select", "navigation.indexes", "navigation.sections", "navigation.tabs", "toc.integrate"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../javascripts/open_in_new_tab.js"></script>
+      
+    
+  </body>
+</html>
