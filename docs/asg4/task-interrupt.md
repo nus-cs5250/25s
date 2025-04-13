@@ -5,24 +5,27 @@
     You're to use the same environment as in the previous task.
 
 The PCI device we're dealing with in this task can calculate the factorial of a number.
-By properly setting the status register, it will raise an interrupt after finishing the computation.
+When the computation completes, the device raises an interrupt if the status register is set correctly.
 
 In this task, we've provided you with framework code for the device driver.
 Your job is to implement the interrupt handler and the service routines (open, close, read, and write) of the character device.
 
-Here's the driver specification:
+Here's the specification:
 
 - (2 marks)
-  The device file must be opened with either the `O_WRONLY` flag or the `O_RDONLY` flag, not both.
-  If the flag is not properly set, the handler should return `-EINVAL`.
+  The device file must only be opened with either `O_WRONLY` or `O_RDONLY`.
+  Opening with both or other flags should return `-EINVAL`.
 - (2 marks)
   The device file can only be opened at most once at any time.
-  If the device file has already been opened when attempting to open it again, the handler should return `-EBUSY`.
-- (4 marks)
-  If the file is opened with the `O_WRONLY` flag, you can write a number to the device file.
-  The device will start calculating the factorial of the number when you close the file.
-- (4 marks)
-  If the file is opened with the `O_RDONLY` flag, you can read the result of the factorial calculation.
+  If the device file is already opened, the handler should return `-EBUSY` when another open attempt is made.
+- (3 marks)
+  If the file is opened with the `O_WRONLY` flag, you can then write a number to the device file.
+  The correctness of the write function is checked based on whether the "edu" device receives the expected input when the file is closed.
+- (3 marks)
+  If the file is opened with the `O_RDONLY` flag, you can then read the result of the factorial calculation.
+  The correctness of the read function is checked by strict string matching between the output of the read function and the expected output described in the example below.
+- (2 marks)
+  The "edu" device shall start calculating the factorial when the file is closed, provided it was opened with the `O_WRONLY` flag and a number was written to it.
 - (2 marks)
   While the device is calculating the factorial, the device file cannot be opened until the computation is finished.
   If the device file is opened while the device is calculating the factorial, the handler should return `-EBUSY`.
@@ -33,7 +36,8 @@ Here's the driver specification:
 Your driver must be free of memory errors.
 Deadlock should not occur in the driver under any circumstances.
 
-Here's the expected behavior of the device:
+The following examples illustrate the expected behavior of the device.
+These examples are for demonstration only; we will use different input values for grading.
 
 ```console
 $ sudo insmod edu.ko
